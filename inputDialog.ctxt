@@ -1,0 +1,5 @@
+#BlueJ class context
+comment0.target=inputDialog
+comment1.params=title
+comment1.target=inputDialog(java.lang.String)
+numComments=2

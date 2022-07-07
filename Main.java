@@ -1,33 +1,16 @@
 
 /**
- * Write a description of class Main here.
+ * This class is made to boot the project. This class will run first if you want to open the program
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Juan Coetzee
+ * @version 1.0
  */
 public class Main
 {
-    // instance variables - replace the example below with your own
-    private int x;
-
-    /**
-     * Constructor for objects of class Main
-     */
-    public Main()
+    public static void main(String[] args)
     {
-        // initialise instance variables
-        x = 0;
-    }
+        System.out.println("main");
+        new GUI();
 
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
-     */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
     }
 }
