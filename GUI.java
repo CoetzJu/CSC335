@@ -14,16 +14,18 @@ import java.awt.event.ActionListener; // This is for the text dialogs
 import java.awt.event.ActionEvent; // This is needed for the text dialogs
 import java.awt.geom.*;
 
-public class GUI extends JFrame implements ActionListener
+public class GUI extends JFrame implements ActionListener, MouseListener
 {
     // This will be the main area fo the GUI as all the other bit of GUI come
     //back here
+    Canvas mainBoard;
     private String remember;
 
     public GUI(){
         // This is to create the window for the program to use.
         setTitle("Wellington Waterways");
         this.getContentPane().setPreferredSize(new Dimension(400,600));
+        addMouseListener(this);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.toFront();
         this.setVisible(true);
@@ -94,28 +96,27 @@ public class GUI extends JFrame implements ActionListener
             break;
             case "Close Window" : System.exit(0);
             break;
-            case "TEST" : TEST test = new TEST();
         }//Switch
     } //Method
-
-    //This method is for dialogBoxes. This will be used for saving loading
-    // and other things that will be similar to that.
-    public void dialogBoxes(){
-        JDialog box = new JDialog(this);
-        box.setBounds(400,400,250,100);
-        TextArea area = new TextArea("More information");
-        box.add(area);
-        area.setEditable(false); // This prevents the user from editing the text
-        box.toFront();
-        box.setVisible(true);
-        box.setTitle("Hello");
-
-    }//Method
 
     //=======================================================================================================================================================
     // This is the Main part of the GUI. like the Grids, icons, or other things related to visuals/
     //=======================================================================================================================================================
 
+    //=======================================================================================================================================================
+    // Mouse tracking
+    //=======================================================================================================================================================
 
+
+    public void mouseClicked(MouseEvent e){
+        int mousex = e.getX();
+        int mousey = e.getY();
+        System.out.println("click at" + mousex + ", " + mousey);
+    }
+
+    public void mouseExited(MouseEvent e) {System.out.println("exit");}
+    public void mouseEntered(MouseEvent e) {System.out.println("enter");}
+    public void mouseReleased(MouseEvent e) {System.out.println("release");}
+    public void mousePressed(MouseEvent e) {System.out.println("press");}
 
 }// Class
