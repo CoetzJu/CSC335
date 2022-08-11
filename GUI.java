@@ -20,12 +20,24 @@ public class GUI extends JFrame implements ActionListener, MouseListener
     //back here
     Canvas mainBoard;
     private String remember;
+    public int painty;
+    public int paintx;
+    public int mousex;
+    public int mousey;
+    public int gridSize = 50;
+    public int gridStart = 120;
+    public int squareSize = 50;
 
     public GUI(){
+
         // This is to create the window for the program to use.
         setTitle("Wellington Waterways");
-        this.getContentPane().setPreferredSize(new Dimension(400,600));
+        this.getContentPane().setPreferredSize(new Dimension(900,900));
         addMouseListener(this);
+        JPanel panel = new JPanel();
+        panel.setPreferredSize(new Dimension(400,400));
+        mainBoard = new Canvas();
+        panel.add(mainBoard);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.toFront();
         this.setVisible(true);
@@ -103,15 +115,59 @@ public class GUI extends JFrame implements ActionListener, MouseListener
     // This is the Main part of the GUI. like the Grids, icons, or other things related to visuals/
     //=======================================================================================================================================================
 
+    //https://www.javatpoint.com/GridLayout
+    final String emptyPipe ="emptyPipe.png";
+    ImageIcon ePipe = new ImageIcon(emptyPipe);
+
+
+    public void paint (Graphics g) {
+        super.paint(g);
+        Graphics2D g2 = (Graphics2D) g;
+        int size = 500;
+        //grid
+        for (int i = 0; i <= size; i = i + squareSize){
+            // Horizontal
+            Line2D line = new Line2D.Float(gridStart, i + gridStart, size + gridStart, i + gridStart);
+            // Vertical
+            Line2D line2 = new Line2D.Float(gridStart + i,gridStart,  i + gridStart,size + gridStart);
+
+            g2.draw(line);
+            g2.draw(line2);
+
+
+        }
+
+        ePipe.paintIcon(this g );
+
+    }
+
+    // Co-ordinates
+
+    public int clickYcoord() {
+        mousey = mousey - gridStart;
+        mousey = Math.round(mousey / squareSize);
+        System.out.println(mousey);
+        return mousey;
+    }
+
+    public int clickXcoord(){
+        mousex = mousex - gridStart;
+        mousex = Math.round(mousex / squareSize);
+        System.out.println(mousex);
+        return mousex;
+    }
     //=======================================================================================================================================================
     // Mouse tracking
     //=======================================================================================================================================================
 
 
     public void mouseClicked(MouseEvent e){
-        int mousex = e.getX();
-        int mousey = e.getY();
-        System.out.println("click at" + mousex + ", " + mousey);
+        mousex = e.getX();
+        mousey = e.getY();
+        System.out.println("click at " + mousex + ", " + mousey);
+        clickXcoord();
+        clickYcoord();
+        this.repaint();
     }
 
     public void mouseExited(MouseEvent e) {System.out.println("exit");}
