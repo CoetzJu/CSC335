@@ -116,7 +116,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener
     //=======================================================================================================================================================
 
     //https://www.javatpoint.com/GridLayout
-    final String emptyPipe ="emptyPipe.png";
+    final String emptyPipe ="assets/emptyPipe.png";
     ImageIcon ePipe = new ImageIcon(emptyPipe);
 
 
@@ -137,7 +137,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener
 
         }
 
-        ePipe.paintIcon(this g );
+        emptyPipe.paintIcon(this, g, clickYcoord(), clickXcoord() );
 
     }
 
@@ -166,6 +166,8 @@ public class GUI extends JFrame implements ActionListener, MouseListener
         mousey = e.getY();
         System.out.println("click at " + mousex + ", " + mousey);
         clickXcoord();
+        int xCoord = clickXcoord();
+        int yCoord = clickYcoord()
         clickYcoord();
         this.repaint();
     }
