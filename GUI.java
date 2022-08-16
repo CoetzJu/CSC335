@@ -137,24 +137,41 @@ public class GUI extends JFrame implements ActionListener, MouseListener
 
         }
 
-        emptyPipe.paintIcon(this, g, clickYcoord(), clickXcoord() );
+        ePipe.paintIcon(this, g, Xdraw(), Ydraw() );
 
     }
 
     // Co-ordinates
 
+    public int Ydraw(){
+        int ySwag = clickYcoord();
+        ySwag = ySwag + squareSize;
+        ySwag = ySwag * gridStart;
+        System.out.println("Yswag" + ySwag);
+        return ySwag;
+    }
+
+    public int Xdraw(){
+        int xSwag = clickXcoord();
+        xSwag = xSwag + gridStart;
+        xSwag = xSwag * squareSize;
+        return xSwag;
+    }
+
     public int clickYcoord() {
-        mousey = mousey - gridStart;
-        mousey = Math.round(mousey / squareSize);
-        System.out.println(mousey);
-        return mousey;
+        int cellY;
+        cellY = mousey - gridStart;
+        cellY = Math.round(cellY/squareSize);
+        System.out.println(cellY);
+        return cellY;
     }
 
     public int clickXcoord(){
-        mousex = mousex - gridStart;
-        mousex = Math.round(mousex / squareSize);
-        System.out.println(mousex);
-        return mousex;
+        int cellX;
+        cellX = mousex - gridStart;
+        cellX = Math.round(cellX / squareSize);
+        System.out.println(cellX);
+        return cellX;
     }
     //=======================================================================================================================================================
     // Mouse tracking
@@ -166,15 +183,13 @@ public class GUI extends JFrame implements ActionListener, MouseListener
         mousey = e.getY();
         System.out.println("click at " + mousex + ", " + mousey);
         clickXcoord();
-        int xCoord = clickXcoord();
-        int yCoord = clickYcoord()
         clickYcoord();
         this.repaint();
     }
 
-    public void mouseExited(MouseEvent e) {System.out.println("exit");}
-    public void mouseEntered(MouseEvent e) {System.out.println("enter");}
-    public void mouseReleased(MouseEvent e) {System.out.println("release");}
-    public void mousePressed(MouseEvent e) {System.out.println("press");}
+    public void mouseExited(MouseEvent e) {/*System.out.println("exit");*/}
+    public void mouseEntered(MouseEvent e) {/*System.out.println("enter");*/}
+    public void mouseReleased(MouseEvent e) {/*System.out.println("release");*/}
+    public void mousePressed(MouseEvent e) {/*System.out.println("press");*/}
 
 }// Class
