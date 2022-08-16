@@ -28,6 +28,8 @@ public class GUI extends JFrame implements ActionListener, MouseListener
     public int gridStart = 120;
     public int squareSize = 50;
 
+    public int pipes [] [];
+
     public GUI(){
 
         // This is to create the window for the program to use.
@@ -145,16 +147,16 @@ public class GUI extends JFrame implements ActionListener, MouseListener
 
     public int Ydraw(){
         int ySwag = clickYcoord();
-        ySwag = ySwag + squareSize;
-        ySwag = ySwag * gridStart;
+        ySwag = ySwag * squareSize;
+        ySwag = ySwag + gridStart;
         System.out.println("Yswag" + ySwag);
         return ySwag;
     }
 
     public int Xdraw(){
         int xSwag = clickXcoord();
-        xSwag = xSwag + gridStart;
         xSwag = xSwag * squareSize;
+        xSwag = xSwag + gridStart;
         return xSwag;
     }
 
