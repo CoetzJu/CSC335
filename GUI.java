@@ -29,9 +29,9 @@ public class GUI extends JFrame implements ActionListener, MouseListener
     public int gridSize = 500;
     public int gridStart = 120;
     public int squareSize = 50;
+    flow network = new flow();
 
     public GUI(){
-
         // This is to create the window for the program to use.
         setTitle("Wellington Waterways");
         this.getContentPane().setPreferredSize(new Dimension(900,900));
@@ -136,6 +136,14 @@ public class GUI extends JFrame implements ActionListener, MouseListener
             g2.draw(line);
             g2.draw(line2);
 
+            for (int x = 0; x < 10; x++){
+                for (int y = 0; y < 10; y++){
+                    if (currentgrid [x] [y] == 1){
+                        ePipe.paintIcon(this, g, paintx, painty);
+                    }
+                }
+            }
+
 
         }
 
@@ -196,6 +204,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener
         if (mousex > gridStart && mousey > gridStart &&  mousex <  gridStart + squareSize * 10 && mousey <  gridStart + squareSize * 10){
             clickXcoord();
             clickYcoord();
+            network[clickXcoord()] [clickYcoord()] = 1;
             coOrdRun();
         } else {
             System.out.println("this is outside of the grid");
