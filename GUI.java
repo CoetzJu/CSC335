@@ -24,11 +24,11 @@ public class GUI extends JFrame implements ActionListener, MouseListener
     public int paintx;
     public int mousex;
     public int mousey;
-    public int gridSize = 50;
+    public int Xcoord;
+    public int Ycoord;
+    public int gridSize = 500;
     public int gridStart = 120;
     public int squareSize = 50;
-
-    public int pipes [] [];
 
     public GUI(){
 
@@ -139,25 +139,32 @@ public class GUI extends JFrame implements ActionListener, MouseListener
 
         }
 
-        ePipe.paintIcon(this, g, Xdraw(), Ydraw() );
+        ePipe.paintIcon(this, g, paintx, painty);
 
     }
 
     // Co-ordinates
+    public void coOrdRun(){
+        Ydraw();
+        Xdraw();
+}
 
     public int Ydraw(){
-        int ySwag = clickYcoord();
-        ySwag = ySwag * squareSize;
-        ySwag = ySwag + gridStart;
-        System.out.println("Yswag" + ySwag);
-        return ySwag;
+        int gridY = Ycoord;
+        gridY = gridY * squareSize;
+        gridY = gridY + gridStart;
+        System.out.println("gridY " + gridY);
+        painty = gridY;
+        return painty;
     }
 
     public int Xdraw(){
-        int xSwag = clickXcoord();
-        xSwag = xSwag * squareSize;
-        xSwag = xSwag + gridStart;
-        return xSwag;
+        int gridX = Xcoord;
+        gridX = gridX * squareSize;
+        gridX = gridX + gridStart;
+        System.out.println("gridX " + gridX);
+        paintx = gridX;
+        return paintx;
     }
 
     public int clickYcoord() {
@@ -165,7 +172,8 @@ public class GUI extends JFrame implements ActionListener, MouseListener
         cellY = mousey - gridStart;
         cellY = Math.round(cellY/squareSize);
         System.out.println(cellY);
-        return cellY;
+        Ycoord = cellY;
+        return Ycoord;
     }
 
     public int clickXcoord(){
@@ -173,7 +181,8 @@ public class GUI extends JFrame implements ActionListener, MouseListener
         cellX = mousex - gridStart;
         cellX = Math.round(cellX / squareSize);
         System.out.println(cellX);
-        return cellX;
+        Xcoord = cellX;
+        return Xcoord;
     }
     //=======================================================================================================================================================
     // Mouse tracking
@@ -184,8 +193,13 @@ public class GUI extends JFrame implements ActionListener, MouseListener
         mousex = e.getX();
         mousey = e.getY();
         System.out.println("click at " + mousex + ", " + mousey);
-        clickXcoord();
-        clickYcoord();
+        if (mousex > gridStart && mousey > gridStart &&  mousex <  gridStart + squareSize * 10 && mousey <  gridStart + squareSize * 10){
+            clickXcoord();
+            clickYcoord();
+            coOrdRun();
+        } else {
+            System.out.println("this is outside of the grid");
+        }
         this.repaint();
     }
 
