@@ -12,28 +12,26 @@ import java.awt.event.*; //Listener for the switch statement
 import java.awt.*; // For making the GUI window
 import java.awt.event.ActionListener; // This is for the text dialogs
 import java.awt.event.ActionEvent; // This is needed for the text dialogs
-import java.awt.geom.*; // This is used for geometry. Or the grid lines
+import java.awt.geom.*;
 
-public class GUI extends JFrame implements ActionListener, MouseListener
+public class GUI2 extends JFrame implements ActionListener, MouseListener
 {
     // This will be the main area fo the GUI as all the other bit of GUI come
     //back here
     Canvas mainBoard;
-    public int pipeType;
+    private String remember;
     public int painty;
     public int paintx;
     public int mousex;
     public int mousey;
-    public int Xcoord;
-    public int Ycoord;
-    public int gridSize = 500;
+    public int gridSize = 50;
     public int gridStart = 120;
     public int squareSize = 50;
-    public int dataGridX;
-    public int dataGridY;
-    flow network = new flow();
 
-    public GUI(){
+    public int pipes [] [];
+
+    public GUI2(){
+
         // This is to create the window for the program to use.
         setTitle("Wellington Waterways");
         this.getContentPane().setPreferredSize(new Dimension(900,900));
@@ -79,18 +77,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener
         menuItem.addActionListener(this);
         menu.add(menuItem);
 
-        menu = new JMenu("Pipes");
-        menuBar.add(menu);
-
-        menuItem = new JMenuItem("Straight pipe");
-        menuItem.addActionListener(this);
-        menu.add(menuItem);
-
-        menuItem = new JMenuItem("Cross Pipe");
-        menuItem.addActionListener(this);
-        menu.add(menuItem);
-
-        menuItem = new JMenuItem("Source Pipe");
+        menuItem = new JMenuItem("TEST");
         menuItem.addActionListener(this);
         menu.add(menuItem);
 
@@ -116,22 +103,13 @@ public class GUI extends JFrame implements ActionListener, MouseListener
                 filing open = new filing();
                 open.load(reply);
             break;
-            case "Save" : filing Save = new filing();
-            Save.save(this);
+            case "Save" :;
             break;
             case "Save As" : ;
             break;
             case "Close Window" : System.exit(0);
             break;
         }//Switch
-
-        switch(cmd){
-            case "Straight pipe" : pipeType = 1;
-            break;
-            case "Cross Pipe" : pipeType = 2;
-            break;
-            case "Source Pipe" : pipeType = 3;
-        }
     } //Method
 
     //=======================================================================================================================================================
@@ -139,30 +117,14 @@ public class GUI extends JFrame implements ActionListener, MouseListener
     //=======================================================================================================================================================
 
     //https://www.javatpoint.com/GridLayout
-    dataField dataSet = new dataField();
+    final String emptyPipe ="assets/emptyPipe.png";
+    ImageIcon ePipe = new ImageIcon(emptyPipe);
 
 
     public void paint (Graphics g) {
         super.paint(g);
         Graphics2D g2 = (Graphics2D) g;
-
         int size = 500;
-
-        //Test image
-        final String Plum ="Plum.jpg";
-        ImageIcon testPlum = new ImageIcon(Plum);
-
-        //Empty pipes
-        final String emptyPipe ="emptyPipe.png";
-        ImageIcon ePipe = new ImageIcon(emptyPipe);
-
-        /*ePipe.paintIcon(this, g, 300, 300);
-        System.out.println("Test " + ePipe);
-        System.out.println(ePipe.getImageLoadStatus());*/
-
-        //Full pipes
-
-
         //grid
         for (int i = 0; i <= size; i = i + squareSize){
             // Horizontal
@@ -173,70 +135,28 @@ public class GUI extends JFrame implements ActionListener, MouseListener
             g2.draw(line);
             g2.draw(line2);
 
+
         }
 
-        //dataField dataSet = new dataField();
+        ePipe.paintIcon(this, g, Xdraw(), Ydraw() );
 
-        for (int dataGridX = 0; dataGridX < 10; dataGridX++){
-            for (int dataGridY = 0; dataGridY < 10; dataGridY++)
-                // Horizontal pipes
-             if (dataSet.currentgrid [dataGridX] [dataGridY] == 1){
-
-                int gridY = dataGridY;
-                gridY = gridY * squareSize;
-                gridY = gridY + gridStart;
-                painty = gridY;
-
-                int gridX = dataGridX;
-                gridX = gridX * squareSize;
-                gridX = gridX + gridStart;
-                paintx = gridX;
-                ePipe.paintIcon(this, g, paintx, painty);
-            }
-
-            // Source blocks
-            if (dataSet.currentgrid [dataGridX] [dataGridY] == 2){
-
-                int gridY = dataGridY;
-                gridY = gridY * squareSize;
-                gridY = gridY + gridStart;
-                painty = gridY;
-
-                int gridX = dataGridX;
-                gridX = gridX * squareSize;
-                gridX = gridX + gridStart;
-                paintx = gridX; 
-
-                ePipe.paintIcon(this, g, paintx, painty);
-            }
-
-                //Cross pipes
-            if (dataSet.currentgrid [dataGridX] [dataGridY] == 3){   
-
-                int gridY = dataGridY;
-                gridY = gridY * squareSize;
-                gridY = gridY + gridStart;
-                painty = gridY;
-
-                int gridX = dataGridX;
-                gridX = gridX * squareSize;
-                gridX = gridX + gridStart;
-                paintx = gridX;                
-                ePipe.paintIcon(this, g, paintx, painty);
-            }
-        }
-    }    
-
+    }
 
     // Co-ordinates
 
-    public void coordInput(){
-        int gridY = Ycoord;
-        int gridX = Xcoord;
-        System.out.println("Placing " + gridX + " and " + gridY + " into the dataset");
-        dataSet.currentgrid [gridX] [gridY] = pipeType;
-        System.out.println("return value = " + dataSet.currentgrid [gridX] [gridY]);
-        this.repaint();
+    public int Ydraw(){
+        int ySwag = clickYcoord();
+        ySwag = ySwag * squareSize;
+        ySwag = ySwag + gridStart;
+        System.out.println("Yswag" + ySwag);
+        return ySwag;
+    }
+
+    public int Xdraw(){
+        int xSwag = clickXcoord();
+        xSwag = xSwag * squareSize;
+        xSwag = xSwag + gridStart;
+        return xSwag;
     }
 
     public int clickYcoord() {
@@ -244,8 +164,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener
         cellY = mousey - gridStart;
         cellY = Math.round(cellY/squareSize);
         System.out.println(cellY);
-        Ycoord = cellY;
-        return Ycoord;
+        return cellY;
     }
 
     public int clickXcoord(){
@@ -253,8 +172,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener
         cellX = mousex - gridStart;
         cellX = Math.round(cellX / squareSize);
         System.out.println(cellX);
-        Xcoord = cellX;
-        return Xcoord;
+        return cellX;
     }
     //=======================================================================================================================================================
     // Mouse tracking
@@ -265,19 +183,13 @@ public class GUI extends JFrame implements ActionListener, MouseListener
         mousex = e.getX();
         mousey = e.getY();
         System.out.println("click at " + mousex + ", " + mousey);
-        if (mousex > gridStart && mousey > gridStart &&  mousex <  gridStart + squareSize * 10 && mousey <  gridStart + squareSize * 10){
-            clickXcoord();
-            clickYcoord();
-            coordInput();
-            //network[clickXcoord()] [clickYcoord()] = 1;
-        } else {
-            System.out.println("this is outside of the grid");
-        }
+        clickXcoord();
+        clickYcoord();
+        this.repaint();
     }
 
     public void mouseExited(MouseEvent e) {/*System.out.println("exit");*/}
     public void mouseEntered(MouseEvent e) {/*System.out.println("enter");*/}
     public void mouseReleased(MouseEvent e) {/*System.out.println("release");*/}
     public void mousePressed(MouseEvent e) {/*System.out.println("press");*/}
-
-}// Class
+}
