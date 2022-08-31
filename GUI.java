@@ -149,12 +149,20 @@ public class GUI extends JFrame implements ActionListener, MouseListener
         int size = 500;
 
         //Test image
-        final String Plum ="Plum.jpg";
+        final String Plum ="assets/Plum.jpg";
         ImageIcon testPlum = new ImageIcon(Plum);
 
         //Empty pipes
-        final String emptyPipe ="emptyPipe.png";
+        final String emptyPipe ="assets/emptyPipe.png";
         ImageIcon ePipe = new ImageIcon(emptyPipe);
+        
+        //Empty Cross pipes
+        final String emptyCross ="assets/emptyCrossPipe.png";
+        ImageIcon eCrossPipe = new ImageIcon(emptyCross);
+
+        //Empty source
+        final String emptySource = "assets/sourceCross.png";
+        ImageIcon eSource = new ImageIcon(emptySource);
 
         /*ePipe.paintIcon(this, g, 300, 300);
         System.out.println("Test " + ePipe);
@@ -207,7 +215,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener
                 gridX = gridX + gridStart;
                 paintx = gridX; 
 
-                ePipe.paintIcon(this, g, paintx, painty);
+                eSource.paintIcon(this, g, paintx, painty);
             }
 
                 //Cross pipes
@@ -222,7 +230,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener
                 gridX = gridX * squareSize;
                 gridX = gridX + gridStart;
                 paintx = gridX;                
-                ePipe.paintIcon(this, g, paintx, painty);
+                eCrossPipe.paintIcon(this, g, paintx, painty);
             }
         }
     }    
