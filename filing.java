@@ -8,6 +8,7 @@
 import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
+import java.nio.Buffer;
 import java.io.FileWriter;
 
 // This needs to be able to read CSV files.
@@ -19,13 +20,14 @@ public class filing
     
     public void load(String fileName){
 
-        File myFile = new File(fileName + ".csv");
+        File myFile = new File("saveData/" + fileName + ".csv");
         String CSVlines[] = new String[MAXLINES];
         String AllLinesAllElements[][] = new String [MAXLINES][valuesPerLine];
         int lineCount = 0;
         try {
             
             Scanner readTheFile = new Scanner(myFile);
+
             while (readTheFile.hasNextLine() && lineCount < MAXLINES){
 
                 String line= readTheFile.nextLine();
@@ -37,7 +39,7 @@ public class filing
             for (int i = 0; i < lineCount; i++)
                 System.out.println(CSVlines[i]);
             
-            for (int h = 0; h < lineCount; h++){
+            /*for (int h = 0; h < lineCount; h++){
                 String value[] = CSVlines[h].split(",");
 
                 for(int j = 0; j < value.length; j++)
@@ -47,19 +49,15 @@ public class filing
                 for(int j = 0; j < value.length; j++)
                     AllLinesAllElements[h][j] = value[j];
                 
-            }
+            }*/
 
+        
         }//Try
         catch (IOException e) {
             System.out.println("File could not be found");
             e.printStackTrace();
         }//Catch
 
-        System.out.println("The First Colomn read");
-        for (int i = 0; i < 10; i++){
-            System.out.println("The X value of the pipe is "+ AllLinesAllElements[i][1] + " The Y value is " + AllLinesAllElements[i][1] + " the pipe type is " + AllLinesAllElements[i][2]);
-            System.out.println("The First Colomn read");
-        }
     }//Method
     
     void save(GUI myFrame){

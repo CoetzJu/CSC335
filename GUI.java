@@ -149,8 +149,8 @@ public class GUI extends JFrame implements ActionListener, MouseListener
         int size = 500;
 
         //Test image
-        final String Plum ="assets/Plum.jpg";
-        ImageIcon testPlum = new ImageIcon(Plum);
+        /*final String Plum ="assets/Plum.jpg";
+        ImageIcon testPlum = new ImageIcon(Plum);*/
 
         //Empty pipes
         final String emptyPipe ="assets/emptyPipe.png";
@@ -171,7 +171,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener
         //Full pipes
 
 
-        //grid
+        //This for loop draws the Grid
         for (int i = 0; i <= size; i = i + squareSize){
             // Horizontal
             Line2D line = new Line2D.Float(gridStart, i + gridStart, size + gridStart, i + gridStart);
@@ -183,8 +183,8 @@ public class GUI extends JFrame implements ActionListener, MouseListener
 
         }
 
-        //dataField dataSet = new dataField();
 
+        // This for loop runs through the grid checking the values of each set co-ordinates, and then painting the pipes based on the values.
         for (int dataGridX = 0; dataGridX < 10; dataGridX++){
             for (int dataGridY = 0; dataGridY < 10; dataGridY++)
                 // Horizontal pipes
@@ -200,10 +200,8 @@ public class GUI extends JFrame implements ActionListener, MouseListener
                 gridX = gridX + gridStart;
                 paintx = gridX;
                 ePipe.paintIcon(this, g, paintx, painty);
-            }
 
-            // Source blocks
-            if (dataSet.currentgrid [dataGridX] [dataGridY] == 2){
+            } else if (dataSet.currentgrid [dataGridX] [dataGridY] == 2){ // Source Cross Pipes
 
                 int gridY = dataGridY;
                 gridY = gridY * squareSize;
@@ -216,10 +214,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener
                 paintx = gridX; 
 
                 eSource.paintIcon(this, g, paintx, painty);
-            }
-
-                //Cross pipes
-            if (dataSet.currentgrid [dataGridX] [dataGridY] == 3){   
+            } else if (dataSet.currentgrid [dataGridX] [dataGridY] == 3){   // Cross pipes  
 
                 int gridY = dataGridY;
                 gridY = gridY * squareSize;
