@@ -19,6 +19,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener
     // This will be the main area fo the GUI as all the other bit of GUI come
     //back here
     Canvas mainBoard;
+    public boolean loaded = false;
     public int pipeType;
     public int painty;
     public int paintx;
@@ -32,11 +33,13 @@ public class GUI extends JFrame implements ActionListener, MouseListener
     public int dataGridX;
     public int dataGridY;
     flow network = new flow();
+    dataField dataSet = new dataField();
+    filing loadset = new filing();
 
     public GUI(){
         // This is to create the window for the program to use.
         setTitle("Wellington Waterways");
-        this.getContentPane().setPreferredSize(new Dimension(900,900));
+        this.getContentPane().setPreferredSize(new Dimension(700,700));
         addMouseListener(this);
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(400,400));
@@ -86,11 +89,11 @@ public class GUI extends JFrame implements ActionListener, MouseListener
         menuItem.addActionListener(this);
         menu.add(menuItem);
 
-        menuItem = new JMenuItem("Cross Pipe");
+        menuItem = new JMenuItem("Source Pipe");
         menuItem.addActionListener(this);
         menu.add(menuItem);
 
-        menuItem = new JMenuItem("Source Pipe");
+        menuItem = new JMenuItem("Cross Pipe");
         menuItem.addActionListener(this);
         menu.add(menuItem);
 
@@ -99,6 +102,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener
     }//Switch
 
     //This method is for the menu being clicked on and used
+    
 
     public void actionPerformed(ActionEvent e){
         String cmd = e.getActionCommand();
@@ -113,8 +117,15 @@ public class GUI extends JFrame implements ActionListener, MouseListener
                 box.setVisible(true);
                 String reply = box.getText();
                 System.out.println(reply);
-                filing open = new filing();
-                open.load(reply);
+                loadset.load(reply);       
+                changeDataSet(loadset.loadGrid);    
+                for (int i = 0; i < 10; i++){
+                    for (int j = 0; j < 10; j++){
+                        System.out.print(dataSet.currentgrid[i][j]);
+                    }
+                }
+                //System.out.println("current Loaded");
+                repaint();
             break;
             case "Save" : filing Save = new filing();
             Save.save(this);
@@ -128,9 +139,9 @@ public class GUI extends JFrame implements ActionListener, MouseListener
         switch(cmd){
             case "Straight pipe" : pipeType = 1;
             break;
-            case "Cross Pipe" : pipeType = 2;
+            case "Source Pipe" : pipeType = 2;
             break;
-            case "Source Pipe" : pipeType = 3;
+            case "Cross Pipe" : pipeType = 3;
         }
     } //Method
 
@@ -139,7 +150,6 @@ public class GUI extends JFrame implements ActionListener, MouseListener
     //=======================================================================================================================================================
 
     //https://www.javatpoint.com/GridLayout
-    dataField dataSet = new dataField();
 
 
     public void paint (Graphics g) {
@@ -228,8 +238,18 @@ public class GUI extends JFrame implements ActionListener, MouseListener
                 eCrossPipe.paintIcon(this, g, paintx, painty);
             }
         }
-    }    
+    }
 
+    void changeDataSet(int newData [] []){
+        for (int i = 0; i < 10; i++){
+            for (int j = 0; j < 10; j++){
+                dataSet.currentgrid [i] [j] = newData [i] [j];
+                //System.out.print(dataSet.currentgrid[i][j]);
+            }
+        }
+        //System.out.println("Data Loaded");
+
+    }
 
     // Co-ordinates
 

@@ -15,8 +15,13 @@ import java.io.FileWriter;
 
 public class filing
 {
+    dataField dataSet = new dataField();
     final int MAXLINES = 100;
     final int valuesPerLine = 3;
+    public int GRIDSIZE = 10;
+    public int loadGrid [] [] = new int [GRIDSIZE] [GRIDSIZE];
+    public String Remember [] [] = new String [GRIDSIZE] [GRIDSIZE];
+
     
     public void load(String fileName){
 
@@ -33,24 +38,26 @@ public class filing
                 String line= readTheFile.nextLine();
                 CSVlines[lineCount]=line;
                 lineCount++;
-
             }//While
 
-            for (int i = 0; i < lineCount; i++)
-                System.out.println(CSVlines[i]);
+            for (int i = 0; i < lineCount; i++){
+                //System.out.println(CSVlines[i]);
             
-            /*for (int h = 0; h < lineCount; h++){
-                String value[] = CSVlines[h].split(",");
+                    String value [] = CSVlines[i].split(",");
+                    System.out.print(value[i]);
+                    for (int h = 0; h < lineCount; h++){
+                        Remember [i] [h] = value[h];
 
-                for(int j = 0; j < value.length; j++)
-                    System.out.print(value[j]+"****");
-                System.out.println("");
+                        //loadedGrid();
+                    }//GUI giveLoad = new GUI(); //giveLoad.changeDataSet(loadGrid);
+            }
+            for (int h = 0; h < lineCount; h++){
+                for(int i = 0; i < 10; i++){
+                    loadGrid [i] [h] = Integer.parseInt(Remember[h] [i]);
+                }
 
-                for(int j = 0; j < value.length; j++)
-                    AllLinesAllElements[h][j] = value[j];
-                
-            }*/
-
+                //loadedGrid();
+            }//GUI giveLoad = new GUI(); //giveLoad.changeDataSet(loadGrid);
         
         }//Try
         catch (IOException e) {
